@@ -1,8 +1,37 @@
 #!/usr/bin/env node
 
+/* global  require, process */
+
 'use strict';
 
-const SafeBrowsing = require('../lib/index.js');
-const _ = require('lodash');
+var version = require('../package.json').version;
+var commander = require('commander');
+var Redis = require('redis');
+var _ = require('lodash');
+var SafeBrowsing = require('../lib/index.js');
 
-console.log('This is the command.');
+// Implement Google Safe Browsing fetch functionality
+
+commander
+    .version(version)
+    .command('fetch')
+    .usage('<options>')
+    .option('-k, --key [key]',    'Google Safe Browsing API key')
+    .option('-h, --host [value]', 'Redis host', 'localhost')
+    .option('-p, --port [value]', 'Redis port', 6379)
+    .action(function (options) {
+       
+       var client = new Redis.createClient(_.pick(options,['host','port']));
+       client.on("error", function (err) {
+           console.log("Error " + err);
+       });
+       
+       var cache = new SafeBrowsing.RedisCache(client);
+       var fetcher = new SafeBrowsing.Fetcher(cache,options.key);
+    });
+
+if (!process.argv.slice(2).length) {
+    commander.help();
+}
+
+commander.parse(process.argv);

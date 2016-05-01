@@ -1,0 +1,8 @@
+#!/usr/bin/env node
+
+'use strict';
+
+const SafeBrowsing = require('../lib/index.js');
+const _ = require('lodash');
+
+console.log('This is the command.');

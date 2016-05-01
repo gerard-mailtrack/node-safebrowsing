@@ -56,6 +56,8 @@ class RedisCache {
   }
 
   putChunk(listName, type, chunkID, prefixes) {
+    console.log(`Putting chunk ${getChunkSetKey(listName, type)}:${chunkID}`);
+    
     var transaction = this._client.multi()
       .zadd(getChunkSetKey(listName, type), chunkID, chunkID);
 
@@ -67,6 +69,8 @@ class RedisCache {
   }
 
   dropChunkByID(listName, type, chunkID) {
+    console.log(`Dropping chunk ${getChunkSetKey(listName, type)}:${chunkID}`);
+    
     var transaction = this._client.multi()
       .zrem(getChunkSetKey(listName, type), chunkID)
       .del(getChunkKey(listName, chunkID));

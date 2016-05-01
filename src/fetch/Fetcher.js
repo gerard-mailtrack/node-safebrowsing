@@ -58,13 +58,17 @@ class Fetcher {
 
   startFetchingData() {
     this._dataIsFetching = true;
+    
+    console.log(`Fetching using key:${this.apiKey}`);
 
     fetchData(this.cache, this.apiKey, this.lists)
       .then(function(delayInSecs) {
+        console.log(`Cooling down for: ${delayInSecs}s`);
         this._dataDelay = delayInSecs * 1000;
         this._dataErrorCount = 0;
       }.bind(this))
       .catch(function(e) {
+        console.error(`Error ${e.response.statusCode}: ${e.response.statusMessage}`);
         this._dataErrorCount++;
         this._dataDelay = getDataDelayForErrorCount(this._dataErrorCount);
       }.bind(this))

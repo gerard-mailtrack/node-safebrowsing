@@ -33,3 +33,4 @@ coverage
 
 # The devil.
 .DS_Store
+/jsconfig.json

@@ -25,7 +25,7 @@ var cache = new Safebrowsing.RedisCache(new Redis.createClient());
 // ## Wait, why no parallelism?
 // 
 // Since the Safebrowsing API doesn't allow parallel downloads, there's no
-// advantage to trying to make this parallel. It also simplfies the cache
+// advantage to trying to make this parallel. It also simplifies the cache
 // design if this is the only system that can fetch and mutate the cache.
 // 
 // If you're building a real-world application you're going to want to probably

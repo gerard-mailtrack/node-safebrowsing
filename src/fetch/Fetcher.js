@@ -45,7 +45,7 @@ class Fetcher {
     this._inconclusiveBackoffErrorCount = 0;
     this._inconclusiveNextAllowedFetchTime = moment();
 
-    this.startFetchingData()
+    this.startFetchingData();
   }
 
   getDataFetchingStatus() {

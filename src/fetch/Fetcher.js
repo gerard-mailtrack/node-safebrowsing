@@ -6,6 +6,7 @@ var assert = require('assert');
 var fetchData = require('./fetchData');
 var fetchFullHashes = require('./fetchFullHashes');
 var moment = require('moment');
+var EventEmitter = require('events').EventEmitter;
 
 function getDataDelayForErrorCount(errorCount) {
   assert(errorCount > 0);
@@ -32,6 +33,7 @@ function getDataDelayForErrorCount(errorCount) {
 
 class Fetcher {
   constructor(cache, apiKey, optLists) {
+    
     this.cache = cache;
     this.apiKey = apiKey;
     this.lists = optLists || DefaultLists;
@@ -44,8 +46,14 @@ class Fetcher {
     this._inconclusiveLastErrorTime = null;
     this._inconclusiveBackoffErrorCount = 0;
     this._inconclusiveNextAllowedFetchTime = moment();
+    
+    this._emitter = new EventEmitter();
 
     this.startFetchingData();
+  }
+  
+  on(eventName, eventHandler) {
+    this._emitter.addListener(eventName, eventHandler.bind(this));
   }
 
   getDataFetchingStatus() {

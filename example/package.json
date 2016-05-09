@@ -10,6 +10,7 @@
     "debug": "^2.1.0",
     "ejs": "^1.0.0",
     "express": "~4.9.0",
-    "safebrowsing": "https://github.com/gerard-mailtrack/node-safebrowsing/tarball/master"
+    "safebrowsing": "https://github.com/gerard-mailtrack/node-safebrowsing/tarball/master",
+    "winston": "^2.2.0"
   }
 }

@@ -1,4 +1,5 @@
 var Promise = require('bluebird');
+var EventEmitter = require('events').EventEmitter;
 
 function getChunkSetKey(listName, type) { 
   return `safe:list:${listName}:chunks:${type}`;
@@ -35,6 +36,11 @@ function ensureBoolean(promise) {
 class RedisCache {
   constructor(redisClient) {
     this._client = Promise.promisifyAll(redisClient);
+    this._emitter = new EventEmitter();
+  }
+    
+  on(eventName, eventHandler) {
+    this._emitter.addListener(eventName, eventHandler.bind(this));
   }
 
   getChunkIDs(listName, type) {

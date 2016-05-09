@@ -1,5 +1,5 @@
 {
-  "name": "safebrowsing-cli",
+  "name": "safebrowsing",
   "version": "0.2.1",
   "description": "(Work in progress.) Client for the Google Safe Browsing API v3.",
   "author": "Jonathan Wilde <hello@jwilde.me>",

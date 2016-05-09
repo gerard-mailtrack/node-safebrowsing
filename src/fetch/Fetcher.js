@@ -11,8 +11,6 @@ var EventEmitter = require('events').EventEmitter;
 function getDataDelayForErrorCount(errorCount) {
   assert(errorCount > 0);
 
-  console.log(errorCount);
-
   var delay = 0;
   if (errorCount === 1) {
     delay = 1;
@@ -66,8 +64,6 @@ class Fetcher {
 
   startFetchingData() {
     this._dataIsFetching = true;
-    
-    console.log(`Fetching using key:${this.apiKey}`);
 
     fetchData(this.cache, this.apiKey, this.lists)
       .then(function(delayInSecs) {
@@ -76,9 +72,9 @@ class Fetcher {
         this._dataErrorCount = 0;
       }.bind(this))
       .catch(function(e) {
-        console.error(`Error ${e.response.statusCode}: ${e.response.statusMessage}`);
         this._dataErrorCount++;
         this._dataDelay = getDataDelayForErrorCount(this._dataErrorCount);
+        this._emitter.emit('error', e);
       }.bind(this))
       .then(function() {
         if (this._dataIsFetching) {

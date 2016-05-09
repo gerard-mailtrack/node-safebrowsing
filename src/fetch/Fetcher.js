@@ -67,9 +67,9 @@ class Fetcher {
 
     fetchData(this.cache, this.apiKey, this.lists)
       .then(function(delayInSecs) {
-        console.log(`Cooling down for: ${delayInSecs}s`);
         this._dataDelay = delayInSecs * 1000;
         this._dataErrorCount = 0;
+        this._emitter.emit('message', `Cooling down for: ${delayInSecs}s`);
       }.bind(this))
       .catch(function(e) {
         this._dataErrorCount++;

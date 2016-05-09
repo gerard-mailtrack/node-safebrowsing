@@ -10,6 +10,19 @@ var Redis = require('redis');
 var _ = require('lodash');
 var SafeBrowsing = require('../lib/index.js');
 
+function displayError(e) {
+
+    let message = e.message;
+
+    // handle request error
+
+    if (e.response) {
+        message = 'Request error: ' + e.response.statusCode + ' ' + (e.response.statusMessage || '');
+    }
+
+    console.error(message);
+}
+
 // Implement Google Safe Browsing fetch functionality
 
 commander
@@ -20,14 +33,16 @@ commander
     .option('-h, --host [value]', 'Redis host', 'localhost')
     .option('-p, --port [value]', 'Redis port', 6379)
     .action(function (options) {
-       
+
        var client = new Redis.createClient(_.pick(options,['host','port']));
-       client.on("error", function (err) {
-           console.log("Error " + err);
-       });
-       
+       client.on('error', displayError);
+
        var cache = new SafeBrowsing.RedisCache(client);
+       cache.on('message', console.log);
+
        var fetcher = new SafeBrowsing.Fetcher(cache,options.key);
+       fetcher.on('error', displayError);
+       fetcher.on('message', console.log);
     });
 
 if (!process.argv.slice(2).length) {

@@ -1,3 +1,5 @@
+'use strict';
+
 var DefaultLists = require('../list/DefaultLists');
 var Promise = require('bluebird');
 

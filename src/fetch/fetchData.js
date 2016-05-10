@@ -1,3 +1,5 @@
+'use strict';
+
 var ChunkTypes = require('./ChunkTypes');
 var DataRequestType = require('../io/DataRequestType');
 var Promise = require('bluebird');

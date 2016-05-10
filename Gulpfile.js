@@ -12,7 +12,7 @@ gulp.task('lint', function() {
     .pipe(jshint.reporter('default'));
 });
 
-gulp.task('test', ['lint', 'build'], function(done) {
+gulp.task('test', ['lint'], function(done) {
   gulp.src('src/**/__tests__/*.js', {read: false})
     .pipe(mocha({reporter: 'spec'}))
     .pipe(instanbul.writeReports())

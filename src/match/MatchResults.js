@@ -1,3 +1,5 @@
+'use strict';
+
 var MatchResultTypes = require('./MatchResultTypes');
 
 var _ = require('lodash');

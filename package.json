@@ -9,7 +9,7 @@
   "devDependencies": {
     "coveralls": "^2.11.2",
     "expect": "^0.1.1",
-    "fakeredis": "^0.2.1",
+    "fakeredis": "^1.0.3",
     "gulp": "^3.8.10",
     "gulp-blanket-mocha": "0.0.4",
     "gulp-coveralls": "^0.1.3",

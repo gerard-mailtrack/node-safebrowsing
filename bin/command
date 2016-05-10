@@ -8,7 +8,7 @@ var version = require('../package.json').version;
 var commander = require('commander');
 var Redis = require('redis');
 var _ = require('lodash');
-var SafeBrowsing = require('../lib/index.js');
+var SafeBrowsing = require('../src/index.js');
 
 function displayError(e) {
 

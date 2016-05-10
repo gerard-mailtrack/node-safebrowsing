@@ -38,7 +38,8 @@
   },
   "scripts": {
     "test": "gulp test",
-    "prepublish": "gulp build"
+    "prepublish": "gulp build",
+    "postinstall": "npm install --dev && gulp build"
   },
   "repository": {
     "type": "git",
